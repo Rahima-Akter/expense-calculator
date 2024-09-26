@@ -1,11 +1,14 @@
+// global variables
+let income, grocery, houseRent, utility, remainingBalance;
+
 // calculate button
 const calculateBtn = document.getElementById('calculate-btn');
 calculateBtn.addEventListener('click', function () {
 
-    const income = parseFloat(document.getElementById('income').value);
-    const grocery = parseFloat(document.getElementById('grocery').value);
-    const houseRent = parseFloat(document.getElementById('house-rent').value);
-    const utility = parseFloat(document.getElementById('utility').value);
+    income = parseFloat(document.getElementById('income').value);
+    grocery = parseFloat(document.getElementById('grocery').value);
+    houseRent = parseFloat(document.getElementById('house-rent').value);
+    utility = parseFloat(document.getElementById('utility').value);
 
     if (isNaN(income) || income <= 0) {
         document.getElementById('income-error').classList.remove('hidden');
@@ -29,12 +32,15 @@ calculateBtn.addEventListener('click', function () {
     const balance = income - expense;
 
     // it will show total expense in the history list
-    const totalExpense = document.getElementById('total-expenses');
-    totalExpense.innerText = expense;
+    parseFloat(document.getElementById('total-expenses').innerText = expense);
 
     // it will show the balance after deducting expenses in the history list
-    const remainingBalance = document.getElementById('balance');
-    remainingBalance.innerText = balance;
+    parseFloat(document.getElementById('balance').innerText = balance);
+
+    document.getElementById('income').value = '';
+    document.getElementById('grocery').value = '';
+    document.getElementById('house-rent').value = '';
+    document.getElementById('utility').value = '';
 
 });
 
@@ -42,18 +48,14 @@ calculateBtn.addEventListener('click', function () {
 const calculateSavingsBtn = document.getElementById('calculate-savings');
 calculateSavingsBtn.addEventListener('click', function () {
 
-    const income = parseFloat(document.getElementById('income').value);
-    const grocery = parseFloat(document.getElementById('grocery').value);
-    const houseRent = parseFloat(document.getElementById('house-rent').value);
-    const utility = parseFloat(document.getElementById('utility').value);
 
     const expense = grocery + houseRent + utility;
     const balance = income - expense;
 
     // it will calculate the saving percentage based on the remaining balance
-    const saving = document.getElementById('savings').value;
+    const saving = parseFloat(document.getElementById('savings').value);
 
-    if (isNaN(saving) || utility <= 0) {
+    if (isNaN(saving) || saving <= 0) {
         document.getElementById('savings-error').classList.remove('hidden');
         return;
     }
@@ -61,10 +63,16 @@ calculateSavingsBtn.addEventListener('click', function () {
     let savings = (balance * saving) / 100;
 
     // it will show total savings in the history list
-    const totalSavings = document.getElementById('savings-amount');
-    totalSavings.innerText = savings;
+    const totalSavings = parseFloat(document.getElementById('savings-amount').innerText = savings);
+    
+    // balance after deducting savings from remaining balance
+    const total = balance - totalSavings;
 
     // it will show remainng balance after deducting the saving amount in the history list
-    const finalBalance = document.getElementById('remaining-balance');
-    finalBalance.innerText = balance - savings;
+    document.getElementById('remaining-balance').innerText = total;
+
+    document.getElementById('savings').value = '';
+
+    document.getElementById('results').classList.remove('hidden');
 });
+
